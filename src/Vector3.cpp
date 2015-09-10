@@ -14,69 +14,69 @@ Vector3& Vector3::operator=(const Vector3& v)
 Vector3 Vector3::operator-()
 {
 	Vector3 ret;
-	_mm_store_ps(&ret.x, _mm_sub_ps(_mm_setzero_ps(), Load()));
+	_mm_store_ps(&ret.x, _mm_sub_ps(_mm_setzero_ps(), _mm_set_ps(0.0f, z, y, x)));
 	return ret;
 }
 
 bool Vector3::operator==(const Vector3& v)
 {
-	return !_mm_movemask_ps(_mm_cmpeq_ps(Load(), v.Load()));
+	return !_mm_movemask_ps(_mm_cmpeq_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 }
 
 bool Vector3::operator!=(const Vector3& v)
 {
-	return !!_mm_movemask_ps(_mm_cmpneq_ps(Load(), v.Load()));
+	return !!_mm_movemask_ps(_mm_cmpneq_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 }
 
 Vector3 Vector3::operator+(const Vector3& v)
 {
 	Vector3 ret;
-	_mm_store_ps(&ret.x, _mm_add_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_add_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return ret;
 }
 
 Vector3& Vector3::operator+=(const Vector3& v)
 {
-	_mm_store_ps(&x, _mm_add_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_add_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return *this;
 }
 
 Vector3 Vector3::operator-(const Vector3& v)
 {
 	Vector3 ret;
-	_mm_store_ps(&ret.x, _mm_sub_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_sub_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return ret;
 }
 
 Vector3& Vector3::operator-=(const Vector3& v)
 {
-	_mm_store_ps(&x, _mm_sub_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_sub_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return *this;
 }
 
 Vector3 Vector3::operator*(const Vector3& v)
 {
 	Vector3 ret;
-	_mm_store_ps(&ret.x, _mm_mul_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_mul_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return ret;
 }
 
 Vector3& Vector3::operator*=(const Vector3& v)
 {
-	_mm_store_ps(&x, _mm_mul_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_mul_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return *this;
 }
 
 Vector3 Vector3::operator/(const Vector3& v)
 {
 	Vector3 ret;
-	_mm_store_ps(&ret.x, _mm_div_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_div_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return ret;
 }
 
 Vector3& Vector3::operator/=(const Vector3& v)
 {
-	_mm_store_ps(&x, _mm_div_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_div_ps(_mm_set_ps(0.0f, z, y, x), _mm_set_ps(0.0f ,v.z, v.y, v.x)));
 	return *this;
 }
 
@@ -94,11 +94,6 @@ std::ostream& operator<<(std::ostream& os, const Vector3& v)
 {
 	os << "X: " << v.x << " Y: " << v.y << " Z: " << v.z;
 	return os;
-}
-
-inline __m128 Vector3::Load()const
-{
-	return _mm_set_ps(0.0f, z, y, x);
 }
 
 NS_END

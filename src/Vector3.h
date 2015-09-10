@@ -27,11 +27,6 @@ struct Vector3
 	void* operator new[](size_t x);
 	void  operator delete[](void* x);
 	friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
-private:
-	/// <summary>
-	/// Syntactic sugar for loading
-	/// </summary>
-	inline __m128 Load()const;
 };
 
 NS_END

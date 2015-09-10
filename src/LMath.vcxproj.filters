@@ -48,4 +48,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assembly\LVector.asm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\assembly\Main.asm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\assembly\Vector2.asm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\assembly\Vector3.asm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\assembly\Vector4.asm">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

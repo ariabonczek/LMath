@@ -14,69 +14,69 @@ Vector4& Vector4::operator=(const Vector4& v)
 Vector4 Vector4::operator-()
 {
 	Vector4 ret;
-	_mm_store_ps(&ret.x, _mm_sub_ps(_mm_set1_ps(0.0f), Load()));
+	_mm_store_ps(&ret.x, _mm_sub_ps(_mm_set1_ps(0.0f), _mm_load_ps(&x)));
 	return ret;
 }
 
 bool Vector4::operator==(const Vector4& v)
 {
-	return !_mm_movemask_ps(_mm_cmpeq_ps(Load(), v.Load()));
+	return !_mm_movemask_ps(_mm_cmpeq_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 }
 
 bool Vector4::operator!=(const Vector4& v)
 {
-	return !!_mm_movemask_ps(_mm_cmpneq_ps(Load(), v.Load()));
+	return !!_mm_movemask_ps(_mm_cmpneq_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 }
 
 Vector4 Vector4::operator+(const Vector4& v)
 {
 	Vector4 ret;
-	_mm_store_ps(&ret.x, _mm_add_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_add_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return ret;
 }
 
 Vector4& Vector4::operator+=(const Vector4& v)
 {
-	_mm_store_ps(&x, _mm_add_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_add_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return *this;
 }
 
 Vector4 Vector4::operator-(const Vector4& v)
 {
 	Vector4 ret;
-	_mm_store_ps(&ret.x, _mm_sub_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_sub_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return ret;
 }
 
 Vector4& Vector4::operator-=(const Vector4& v)
 {
-	_mm_store_ps(&x, _mm_sub_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_sub_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return *this;
 }
 
 Vector4 Vector4::operator*(const Vector4& v)
 {
 	Vector4 ret;
-	_mm_store_ps(&ret.x, _mm_mul_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_mul_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return ret;
 }
 
 Vector4& Vector4::operator*=(const Vector4& v)
 {
-	_mm_store_ps(&x, _mm_mul_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_mul_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return *this;
 }
 
 Vector4 Vector4::operator/(const Vector4& v)
 {
 	Vector4 ret;
-	_mm_store_ps(&ret.x, _mm_div_ps(Load(), v.Load()));
+	_mm_store_ps(&ret.x, _mm_div_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return ret;
 }
 
 Vector4& Vector4::operator/=(const Vector4& v)
 {
-	_mm_store_ps(&x, _mm_div_ps(Load(), v.Load()));
+	_mm_store_ps(&x, _mm_div_ps(_mm_load_ps(&x), _mm_load_ps(&v.x)));
 	return *this;
 }
 
@@ -95,10 +95,4 @@ std::ostream& operator<<(std::ostream& os, const Vector4& v)
 	os << "X: " << v.x << " Y: " << v.y << " Z: " << v.z << " W: " << v.w;
 	return os;
 }
-
-inline __m128 Vector4::Load()const
-{
-	return _mm_load_ps(&x);
-}
-
 NS_END
